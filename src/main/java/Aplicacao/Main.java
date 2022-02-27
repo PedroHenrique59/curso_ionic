@@ -35,6 +35,9 @@ public class Main implements CommandLineRunner {
     @Autowired
     private PagamentoRepository pagamentoRepository;
 
+    @Autowired
+    private ItemPedidoRepository itemPedidoRepository;
+
     public static void main(String[] args) {
         SpringApplication.run(Main.class, args);
     }
@@ -74,8 +77,8 @@ public class Main implements CommandLineRunner {
 
         cliente1.getTelefones().addAll(Arrays.asList("31140250", "35478995"));
 
-        Endereco endereco1 = new Endereco(null, "Rua Flores", "300", "Apto 303", "Jardim","31120259" ,cliente1, cidade1);
-        Endereco endereco2 = new Endereco(null, "Avenida Matos", "105", "Sala 800", "Centro","31120587" ,cliente1, cidade2);
+        Endereco endereco1 = new Endereco(null, "Rua Flores", "300", "Apto 303", "Jardim", "31120259", cliente1, cidade1);
+        Endereco endereco2 = new Endereco(null, "Avenida Matos", "105", "Sala 800", "Centro", "31120587", cliente1, cidade2);
 
         cliente1.getEnderecos().addAll(Arrays.asList(endereco1, endereco2));
 
@@ -96,6 +99,12 @@ public class Main implements CommandLineRunner {
 
         pedidoRepository.saveAll(Arrays.asList(pedido1, pedido2));
         pagamentoRepository.saveAll(List.of(pagamento1));
+
+        ItemPedido itemPedido1 = new ItemPedido(pedido1, produto1, 0.00, 1, 2000.00);
+        ItemPedido itemPedido2 = new ItemPedido(pedido1, produto3, 0.00, 2, 80.00);
+        ItemPedido itemPedido3 = new ItemPedido(pedido2, produto2, 100.00, 1, 800.00);
+
+        itemPedidoRepository.saveAll(Arrays.asList(itemPedido1, itemPedido2, itemPedido3));
 
     }
 }
