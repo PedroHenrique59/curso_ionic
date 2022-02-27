@@ -21,9 +21,11 @@ public class Cliente implements Serializable {
 
     private Integer tipoCliente;
 
-    @OneToMany(mappedBy = "cliente")
+    @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
     private List<Endereco> enderecos = new ArrayList<>();
 
+    @ElementCollection
+    @CollectionTable(name = "TELEFONE")
     private Set<String> telefones = new HashSet<>();
 
     public Cliente() {

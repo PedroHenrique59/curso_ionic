@@ -1,10 +1,9 @@
 package Aplicacao;
 
-import Aplicacao.domain.Categoria;
-import Aplicacao.domain.Cidade;
-import Aplicacao.domain.Estado;
-import Aplicacao.domain.Produto;
+import Aplicacao.domain.*;
+import Aplicacao.domain.enums.TipoCliente;
 import Aplicacao.repositories.CategoriaRepository;
+import Aplicacao.repositories.ClienteRepository;
 import Aplicacao.repositories.EstadoRepository;
 import Aplicacao.repositories.ProdutoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,12 +26,15 @@ public class Main implements CommandLineRunner {
     @Autowired
     private EstadoRepository estadoRepository;
 
+    @Autowired
+    private ClienteRepository clienteRepository;
+
     public static void main(String[] args) {
         SpringApplication.run(Main.class, args);
     }
 
     @Override
-    public void run(String... args) throws Exception {
+    public void run(String... args) {
         Categoria categoria1 = new Categoria(null, "Informática");
         Categoria categoria2 = new Categoria(null, "Escritório");
 
@@ -60,6 +62,18 @@ public class Main implements CommandLineRunner {
         estado1.getCidades().add(cidade1);
         estado2.getCidades().addAll(Arrays.asList(cidade2, cidade3));
 
-        estadoRepository.saveAll(List.of(estado1));
+        estadoRepository.saveAllAndFlush(Arrays.asList(estado1, estado2));
+
+        Cliente cliente1 = new Cliente(null, "Maria Silva", "maria@gmail.com", "12345670256", TipoCliente.PESSOA_FISICA);
+
+        cliente1.getTelefones().addAll(Arrays.asList("31140250", "35478995"));
+
+        Endereco endereco1 = new Endereco(null, "Rua Flores", "300", "Apto 303", "Jardim", "31120259", cliente1, cidade1);
+        Endereco endereco2 = new Endereco(null, "Avenida Matos", "105", "Sala 800", "Centro", "31120587", cliente1, cidade2);
+
+        cliente1.getEnderecos().addAll(Arrays.asList(endereco1, endereco2));
+
+        clienteRepository.saveAllAndFlush(List.of(cliente1));
+
     }
 }
