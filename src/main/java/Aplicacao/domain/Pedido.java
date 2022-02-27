@@ -1,5 +1,8 @@
 package Aplicacao.domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
@@ -14,9 +17,10 @@ public class Pedido implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Temporal(TemporalType.TIMESTAMP)
+    @JsonFormat(pattern = "dd/MM/yyyy HH:mm")
     private Date instante;
 
+    @JsonManagedReference
     @ManyToOne
     @JoinColumn(name = "ID_CLIENTE")
     private Cliente cliente;
@@ -25,6 +29,7 @@ public class Pedido implements Serializable {
     @JoinColumn(name = "ID_ENDERECO_ENTREGA")
     private Endereco enderecoDeEntrega;
 
+    @JsonManagedReference
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "pedido")
     private Pagamento pagamento;
 
