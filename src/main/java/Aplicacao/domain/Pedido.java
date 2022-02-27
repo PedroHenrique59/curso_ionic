@@ -20,10 +20,10 @@ public class Pedido implements Serializable {
     private Cliente cliente;
 
     @ManyToOne
-    @JoinColumn(name = "ID_ENDERECO")
+    @JoinColumn(name = "ID_ENDERECO_ENTREGA")
     private Endereco enderecoDeEntrega;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "pedido")
     private Pagamento pagamento;
 
     public Pedido() {
@@ -67,6 +67,14 @@ public class Pedido implements Serializable {
 
     public void setEnderecoDeEntrega(Endereco enderecoDeEntrega) {
         this.enderecoDeEntrega = enderecoDeEntrega;
+    }
+
+    public Pagamento getPagamento() {
+        return pagamento;
+    }
+
+    public void setPagamento(Pagamento pagamento) {
+        this.pagamento = pagamento;
     }
 
     @Override

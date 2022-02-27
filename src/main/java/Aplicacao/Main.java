@@ -1,16 +1,16 @@
 package Aplicacao;
 
 import Aplicacao.domain.*;
+import Aplicacao.domain.enums.EstadoPagamento;
 import Aplicacao.domain.enums.TipoCliente;
-import Aplicacao.repositories.CategoriaRepository;
-import Aplicacao.repositories.ClienteRepository;
-import Aplicacao.repositories.EstadoRepository;
-import Aplicacao.repositories.ProdutoRepository;
+import Aplicacao.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.List;
 
@@ -29,12 +29,18 @@ public class Main implements CommandLineRunner {
     @Autowired
     private ClienteRepository clienteRepository;
 
+    @Autowired
+    private PedidoRepository pedidoRepository;
+
+    @Autowired
+    private PagamentoRepository pagamentoRepository;
+
     public static void main(String[] args) {
         SpringApplication.run(Main.class, args);
     }
 
     @Override
-    public void run(String... args) {
+    public void run(String... args) throws ParseException {
         Categoria categoria1 = new Categoria(null, "Informática");
         Categoria categoria2 = new Categoria(null, "Escritório");
 
@@ -74,6 +80,22 @@ public class Main implements CommandLineRunner {
         cliente1.getEnderecos().addAll(Arrays.asList(endereco1, endereco2));
 
         clienteRepository.saveAllAndFlush(List.of(cliente1));
+
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+
+        Pedido pedido1 = new Pedido(null, sdf.parse("30/09/2017 10:32"), cliente1, endereco1);
+        Pedido pedido2 = new Pedido(null, sdf.parse("10/10/2017 19:35"), cliente1, endereco2);
+
+        cliente1.getPedidos().addAll(Arrays.asList(pedido1, pedido2));
+
+        Pagamento pagamento1 = new PagamentoComCartao(null, EstadoPagamento.QUITADO, pedido1, 6);
+        pedido1.setPagamento(pagamento1);
+
+        Pagamento pagamento2 = new PagamentoComBoleto(null, EstadoPagamento.PENDENTE, pedido2, sdf.parse("20/10/2017 00:00"), null);
+        pedido2.setPagamento(pagamento2);
+
+        pedidoRepository.saveAll(Arrays.asList(pedido1, pedido2));
+        pagamentoRepository.saveAll(List.of(pagamento1));
 
     }
 }
