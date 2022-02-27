@@ -68,8 +68,8 @@ public class Main implements CommandLineRunner {
 
         cliente1.getTelefones().addAll(Arrays.asList("31140250", "35478995"));
 
-        Endereco endereco1 = new Endereco(null, "Rua Flores", "300", "Apto 303", "Jardim", "31120259", cliente1, cidade1);
-        Endereco endereco2 = new Endereco(null, "Avenida Matos", "105", "Sala 800", "Centro", "31120587", cliente1, cidade2);
+        Endereco endereco1 = new Endereco(null, "Rua Flores", "300", "Apto 303", "Jardim","31120259" ,cliente1, cidade1);
+        Endereco endereco2 = new Endereco(null, "Avenida Matos", "105", "Sala 800", "Centro","31120587" ,cliente1, cidade2);
 
         cliente1.getEnderecos().addAll(Arrays.asList(endereco1, endereco2));
 
