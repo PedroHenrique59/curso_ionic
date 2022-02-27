@@ -20,4 +20,18 @@ public enum TipoCliente {
     public String getDescricao() {
         return descricao;
     }
+
+    public static TipoCliente toEnum(Integer id) {
+        if (id == null) {
+            return null;
+        }
+
+        for (TipoCliente tipo : TipoCliente.values()) {
+            if (id.equals(tipo.getId())) {
+                return tipo;
+            }
+        }
+
+        throw new IllegalArgumentException("Id inválido:" + id);
+    }
 }
