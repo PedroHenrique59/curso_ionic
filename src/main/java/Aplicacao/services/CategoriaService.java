@@ -1,6 +1,7 @@
 package Aplicacao.services;
 
 import Aplicacao.domain.Categoria;
+import Aplicacao.dto.CategoriaDTO;
 import Aplicacao.repositories.CategoriaRepository;
 import Aplicacao.services.execptions.DataIntegrityException;
 import Aplicacao.services.execptions.ObjectNotFoundException;
@@ -50,5 +51,9 @@ public class CategoriaService {
     public Page<Categoria> obterPorPaginacao(Integer numeroPagina, Integer linhasPorPagina, String ordenacao, String ordemOrdenacao) {
         PageRequest pageRequest = PageRequest.of(numeroPagina, linhasPorPagina, Sort.Direction.fromString(ordemOrdenacao), ordenacao);
         return categoriaRepository.findAll(pageRequest);
+    }
+
+    public Categoria fromDTO(CategoriaDTO categoriaDTO){
+        return new Categoria(categoriaDTO.getId(), categoriaDTO.getNome());
     }
 }
