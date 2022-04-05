@@ -1,7 +1,11 @@
 package Aplicacao.services;
 
+import Aplicacao.domain.Cidade;
 import Aplicacao.domain.Cliente;
+import Aplicacao.domain.Endereco;
+import Aplicacao.domain.enums.TipoCliente;
 import Aplicacao.dto.ClienteDTO;
+import Aplicacao.dto.ClienteNewDTO;
 import Aplicacao.repositories.ClienteRepository;
 import Aplicacao.services.execptions.DataIntegrityException;
 import Aplicacao.services.execptions.ObjectNotFoundException;
@@ -56,6 +60,21 @@ public class ClienteService {
 
     public Cliente fromDTO(ClienteDTO clienteDTO) {
         return new Cliente(clienteDTO.getId(), clienteDTO.getNome(), clienteDTO.getEmail(), null, null);
+    }
+
+    public Cliente fromDTO(ClienteNewDTO clienteDTO) {
+        Cliente cliente = new Cliente(null, clienteDTO.getNome(), clienteDTO.getEmail(), clienteDTO.getCpfOuCnpj(), TipoCliente.toEnum(clienteDTO.getTipoCliente()));
+        Cidade cidade = new Cidade(clienteDTO.getCidadeId());
+        Endereco endereco = new Endereco(null, clienteDTO.getLogradouro(), clienteDTO.getNumero(), clienteDTO.getComplemento(), clienteDTO.getBairro(), clienteDTO.getCep(), cliente, cidade);
+        cliente.getEnderecos().add(endereco);
+        cliente.getTelefones().add(clienteDTO.getTelefone1());
+        if (clienteDTO.getTelefone2() != null) {
+            cliente.getTelefones().add(clienteDTO.getTelefone2());
+        }
+        if (clienteDTO.getTelefone3() != null) {
+            cliente.getTelefones().add(clienteDTO.getTelefone3());
+        }
+        return cliente;
     }
 
     private void updateData(Cliente newObj, Cliente obj) {

@@ -1,10 +1,11 @@
 package Aplicacao.repositories;
 
-import Aplicacao.domain.Pagamento;
+import Aplicacao.domain.Endereco;
+import Aplicacao.domain.Produto;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface PagamentoRepository extends JpaRepository<Pagamento, Integer> {
+public interface EnderecoRepository extends JpaRepository<Endereco, Integer> {
 
 }

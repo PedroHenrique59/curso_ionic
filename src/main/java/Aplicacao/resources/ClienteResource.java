@@ -2,6 +2,7 @@ package Aplicacao.resources;
 
 import Aplicacao.domain.Cliente;
 import Aplicacao.dto.ClienteDTO;
+import Aplicacao.dto.ClienteNewDTO;
 import Aplicacao.services.ClienteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -33,7 +34,7 @@ public class ClienteResource {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<Void> salvar(@Valid @RequestBody ClienteDTO clienteDto) {
+    public ResponseEntity<Void> salvar(@Valid @RequestBody ClienteNewDTO clienteDto) {
         Cliente cliente = clienteService.fromDTO(clienteDto);
         cliente = clienteService.salvar(cliente);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(cliente.getId()).toUri();
