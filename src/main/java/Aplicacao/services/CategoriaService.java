@@ -1,6 +1,7 @@
 package Aplicacao.services;
 
 import Aplicacao.domain.Categoria;
+import Aplicacao.domain.Cliente;
 import Aplicacao.dto.CategoriaDTO;
 import Aplicacao.repositories.CategoriaRepository;
 import Aplicacao.services.execptions.DataIntegrityException;
@@ -32,8 +33,9 @@ public class CategoriaService {
     }
 
     public Categoria atualizar(Categoria categoria) {
-        obterPorId(categoria.getId());
-        return categoriaRepository.save(categoria);
+        Categoria newObj = obterPorId(categoria.getId());
+        updateData(newObj, categoria);
+        return categoriaRepository.save(newObj);
     }
 
     public void excluir(Integer id) {
@@ -53,7 +55,11 @@ public class CategoriaService {
         return categoriaRepository.findAll(pageRequest);
     }
 
-    public Categoria fromDTO(CategoriaDTO categoriaDTO){
+    public Categoria fromDTO(CategoriaDTO categoriaDTO) {
         return new Categoria(categoriaDTO.getId(), categoriaDTO.getNome());
+    }
+
+    private void updateData(Categoria newObj, Categoria obj) {
+        newObj.setNome(obj.getNome());
     }
 }
