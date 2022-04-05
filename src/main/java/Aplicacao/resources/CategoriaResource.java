@@ -4,6 +4,7 @@ import Aplicacao.domain.Categoria;
 import Aplicacao.dto.CategoriaDTO;
 import Aplicacao.services.CategoriaService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -49,6 +50,17 @@ public class CategoriaResource {
     public ResponseEntity<List<CategoriaDTO>> obterTodos(){
         List<Categoria> categorias = categoriaService.obterTodos();
         List<CategoriaDTO> categoriaDTOS = categorias.stream().map(CategoriaDTO::new).collect(Collectors.toList());
+        return ResponseEntity.ok().body(categoriaDTOS);
+    }
+
+    @RequestMapping(value = "/page", method = RequestMethod.GET)
+    public ResponseEntity<Page<CategoriaDTO>> obterPorPagina(
+            @RequestParam(value = "numeroPagina", defaultValue = "0") Integer numeroPagina,
+            @RequestParam(value = "linhasPorPagina", defaultValue = "nome") Integer linhasPorPagina,
+            @RequestParam(value = "ordenacao", defaultValue = "24") String ordenacao,
+            @RequestParam(value = "ordemOrdenacao", defaultValue = "ASC") String ordemOrdenacao){
+        Page<Categoria> categorias = categoriaService.obterPorPaginacao(numeroPagina, linhasPorPagina, ordenacao, ordemOrdenacao);
+        Page<CategoriaDTO> categoriaDTOS = categorias.map(CategoriaDTO::new);
         return ResponseEntity.ok().body(categoriaDTOS);
     }
 }
