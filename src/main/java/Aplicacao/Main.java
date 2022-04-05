@@ -44,8 +44,14 @@ public class Main implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws ParseException {
+
         Categoria categoria1 = new Categoria(null, "Informática");
         Categoria categoria2 = new Categoria(null, "Escritório");
+        Categoria categoria3 = new Categoria(null, "Cama, mesa e banho");
+        Categoria categoria4 = new Categoria(null, "Eletrônicos");
+        Categoria categoria5 = new Categoria(null, "Jardinagem");
+        Categoria categoria6 = new Categoria(null, "Decoração");
+        Categoria categoria7 = new Categoria(null, "Perfumaria");
 
         Produto produto1 = new Produto(null, "Computador", 2000.00);
         Produto produto2 = new Produto(null, "Impressora", 800.00);
@@ -58,7 +64,7 @@ public class Main implements CommandLineRunner {
         produto2.getCategorias().addAll(Arrays.asList(categoria1, categoria2));
         produto3.getCategorias().add(categoria1);
 
-        categoriaRepository.saveAll(Arrays.asList(categoria1, categoria2));
+        categoriaRepository.saveAll(Arrays.asList(categoria1, categoria2, categoria3, categoria4, categoria5, categoria6, categoria7));
         produtoRepository.saveAll(Arrays.asList(produto1, produto2, produto3));
 
         Estado estado1 = new Estado(null, "Minas Gerais");
@@ -82,7 +88,7 @@ public class Main implements CommandLineRunner {
 
         cliente1.getEnderecos().addAll(Arrays.asList(endereco1, endereco2));
 
-        clienteRepository.saveAllAndFlush(List.of(cliente1));
+        //clienteRepository.saveAllAndFlush(List.of(cliente1));
 
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 
@@ -98,7 +104,7 @@ public class Main implements CommandLineRunner {
         pedido2.setPagamento(pagamento2);
 
         pedidoRepository.saveAll(Arrays.asList(pedido1, pedido2));
-        pagamentoRepository.saveAll(List.of(pagamento1));
+        //pagamentoRepository.saveAll(List.of(pagamento1));
 
         ItemPedido itemPedido1 = new ItemPedido(pedido1, produto1, 0.00, 1, 2000.00);
         ItemPedido itemPedido2 = new ItemPedido(pedido1, produto3, 0.00, 2, 80.00);
