@@ -1,10 +1,12 @@
 package Aplicacao.dto;
 
+import Aplicacao.services.Validation.ClienteInsert;
 import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 
+@ClienteInsert
 public class ClienteNewDTO {
 
     @NotEmpty(message = "Preenchimento obrigatório")
