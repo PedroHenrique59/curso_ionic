@@ -1,13 +1,14 @@
 package Aplicacao.dto;
 
 import Aplicacao.domain.Cliente;
-import org.hibernate.EmptyInterceptor;
+import Aplicacao.services.Validation.ClienteUpdate;
 import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
 
+@ClienteUpdate
 public class ClienteDTO implements Serializable {
 
     private Integer id;
