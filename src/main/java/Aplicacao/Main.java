@@ -79,9 +79,15 @@ public class Main implements CommandLineRunner {
         produto3.getCategorias().addAll(Arrays.asList(categoria1, categoria4));
         produto4.getCategorias().addAll(Collections.singletonList(categoria2));
         produto5.getCategorias().addAll(Collections.singletonList(categoria3));
+        produto6.getCategorias().addAll(Collections.singletonList(categoria3));
+        produto7.getCategorias().addAll(Collections.singletonList(categoria4));
+        produto8.getCategorias().addAll(Collections.singletonList(categoria5));
+        produto9.getCategorias().addAll(Collections.singletonList(categoria6));
+        produto10.getCategorias().addAll(Collections.singletonList(categoria6));
+        produto11.getCategorias().addAll(Collections.singletonList(categoria7));
 
         categoriaRepository.saveAll(Arrays.asList(categoria1, categoria2, categoria3, categoria4, categoria5, categoria6, categoria7));
-        produtoRepository.saveAll(Arrays.asList(produto1, produto2, produto3));
+        produtoRepository.saveAll(Arrays.asList(produto1, produto2, produto3, produto4, produto5, produto6, produto7, produto8, produto9, produto10, produto11));
 
         Estado estado1 = new Estado(null, "Minas Gerais");
         Estado estado2 = new Estado(null, "São Paulo");
@@ -104,7 +110,7 @@ public class Main implements CommandLineRunner {
 
         cliente1.getEnderecos().addAll(Arrays.asList(endereco1, endereco2));
 
-        //clienteRepository.saveAllAndFlush(List.of(cliente1));
+        clienteRepository.saveAllAndFlush(List.of(cliente1));
 
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 
@@ -120,7 +126,7 @@ public class Main implements CommandLineRunner {
         pedido2.setPagamento(pagamento2);
 
         pedidoRepository.saveAll(Arrays.asList(pedido1, pedido2));
-        //pagamentoRepository.saveAll(List.of(pagamento1));
+        pagamentoRepository.saveAll(List.of(pagamento1));
 
         ItemPedido itemPedido1 = new ItemPedido(pedido1, produto1, 0.00, 1, 2000.00);
         ItemPedido itemPedido2 = new ItemPedido(pedido1, produto3, 0.00, 2, 80.00);
