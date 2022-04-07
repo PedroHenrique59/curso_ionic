@@ -110,7 +110,7 @@ public class Main implements CommandLineRunner {
 
         cliente1.getEnderecos().addAll(Arrays.asList(endereco1, endereco2));
 
-        clienteRepository.saveAllAndFlush(List.of(cliente1));
+        //clienteRepository.saveAllAndFlush(List.of(cliente1));
 
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 
@@ -126,7 +126,7 @@ public class Main implements CommandLineRunner {
         pedido2.setPagamento(pagamento2);
 
         pedidoRepository.saveAll(Arrays.asList(pedido1, pedido2));
-        pagamentoRepository.saveAll(List.of(pagamento1));
+        //pagamentoRepository.saveAll(List.of(pagamento1));
 
         ItemPedido itemPedido1 = new ItemPedido(pedido1, produto1, 0.00, 1, 2000.00);
         ItemPedido itemPedido2 = new ItemPedido(pedido1, produto3, 0.00, 2, 80.00);
