@@ -65,8 +65,8 @@ public class ClienteResource {
     @RequestMapping(value = "/page", method = RequestMethod.GET)
     public ResponseEntity<Page<ClienteDTO>> obterPorPagina(
             @RequestParam(value = "numeroPagina", defaultValue = "0") Integer numeroPagina,
-            @RequestParam(value = "linhasPorPagina", defaultValue = "nome") Integer linhasPorPagina,
-            @RequestParam(value = "ordenacao", defaultValue = "24") String ordenacao,
+            @RequestParam(value = "linhasPorPagina", defaultValue = "24") Integer linhasPorPagina,
+            @RequestParam(value = "ordenacao", defaultValue = "nome") String ordenacao,
             @RequestParam(value = "ordemOrdenacao", defaultValue = "ASC") String ordemOrdenacao){
         Page<Cliente> clientes = clienteService.obterPorPaginacao(numeroPagina, linhasPorPagina, ordenacao, ordemOrdenacao);
         Page<ClienteDTO> clienteDTOS = clientes.map(ClienteDTO::new);
