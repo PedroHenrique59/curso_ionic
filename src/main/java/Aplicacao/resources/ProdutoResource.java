@@ -1,12 +1,8 @@
 package Aplicacao.resources;
 
-import Aplicacao.domain.Categoria;
-import Aplicacao.domain.Pedido;
 import Aplicacao.domain.Produto;
-import Aplicacao.dto.CategoriaDTO;
 import Aplicacao.dto.ProdutoDTO;
-import Aplicacao.resources.Utils.URL;
-import Aplicacao.services.PedidoService;
+import Aplicacao.resources.utils.URL;
 import Aplicacao.services.ProdutoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
